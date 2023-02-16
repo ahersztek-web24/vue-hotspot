@@ -27,6 +27,7 @@
     <!-- ControlBox -->
     <ControlBox
       :config="config"
+      :save-button-text="saveButtonText"
       @save-data="saveAllHotspots"
       @after-delete="removeAllHotspots"
     />
@@ -57,7 +58,15 @@ export default createComponent({
     ControlBox
   },
   props: {
-    initOptions: Object
+    initOptions: Object,
+    saveButtonText: {
+      type: String,
+      default: 'Zapisz'
+    },
+    removeButtonText: {
+      type: String,
+      default: 'Usuń'
+    }
   },
   setup (props, { emit }) {
     const vueHotspot = ref(null)

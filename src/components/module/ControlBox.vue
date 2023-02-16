@@ -2,8 +2,8 @@
   <div class="ui__vue_hotspot_buttons_box">
     <div class="ui__vue_hotspot_buttons"
         :class="isEditable ? 'active' : ''">
-      <button class="ui__vue_hotspot_save" @click="saveAllHotspots">Save</button>
-      <button class="ui__vue_hotspot_remove" @click="removeAllHotspots">Remove</button>
+      <button class="ui__vue_hotspot_save" @click="saveAllHotspots">{{saveButtonText}}</button>
+      <button class="ui__vue_hotspot_remove" @click="removeAllHotspots">{{ removeButtonText }}</button>
     </div>
   </div>
 </template>
@@ -12,7 +12,15 @@
 import { createComponent, computed } from '@vue/composition-api'
 export default createComponent({
   props: {
-    config: Object
+    config: Object,
+    saveButtonText: {
+      type: String,
+      default: 'Zapisz'
+    },
+    removeButtonText: {
+      type: String,
+      default: 'Usuń'
+    }
   },
   setup (props, { emit }) {
     const isEditable = computed(() => props.config && props.config.editable)

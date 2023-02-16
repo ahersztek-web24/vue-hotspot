@@ -13,6 +13,7 @@
         <!-- Main -->
         <v-hotspot
           :init-options="item"
+          save-buton-text="Bagno"
           @save-data="saveData"
           @after-delete="afterDelete" />
         <div class="text">
