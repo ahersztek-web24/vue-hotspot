@@ -23,6 +23,7 @@
       :imageLoaded="imageLoaded"
       :vueHotspotBackgroundImage="vueHotspotBackgroundImage"
       :vueHotspot="vueHotspot"
+      @click="removeHotspot(i)"
     />
     <!-- ControlBox -->
     <ControlBox
@@ -187,6 +188,10 @@ export default createComponent({
 
     function removeAllHotspots () {
       emit('after-delete')
+    }
+
+    function removeHotspot (index) {
+      emit('remove-hotspot', { index })
     }
 
     return {
