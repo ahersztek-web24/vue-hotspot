@@ -209,6 +209,7 @@ export default createComponent({
       successLoadImg,
       saveAllHotspots,
       removeAllHotspots,
+      removeHotspot,
       resizeOverlay,
       addHotspot
     }
