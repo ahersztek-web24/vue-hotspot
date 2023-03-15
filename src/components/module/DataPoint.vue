@@ -6,7 +6,7 @@
     @mouseleave="interactivity === 'hover' ? isActive=false : null"
     @click="interactivity === 'click' ? toggleActive() : null">
     <!-- message box -->
-    <div :style="`color:${textColor}`">
+    <div @click="handleClick" :style="`color:${textColor}`">
       <div
         class="ui__vue_hotspot_title"
         :style="`
@@ -83,10 +83,15 @@ export default createComponent({
       isActive.value = !isActive.value
     }
 
+    function handleClick () {
+      emit('click')
+    }
+
     return {
       // data
       isActive,
       ...toRefs(conf),
+      handleClick,
       // methods
       getHotspotStyle,
       toggleActive

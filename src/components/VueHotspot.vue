@@ -23,7 +23,7 @@
       :imageLoaded="imageLoaded"
       :vueHotspotBackgroundImage="vueHotspotBackgroundImage"
       :vueHotspot="vueHotspot"
-      @click="removeHotspot(i)"
+      @click="handleEdit(i)"
     />
     <!-- ControlBox -->
     <ControlBox
@@ -67,6 +67,14 @@ export default createComponent({
     removeButtonText: {
       type: String,
       default: 'Usuń'
+    },
+    alertTitleText: {
+      type: String,
+      default: 'Podaj tytuł'
+    },
+    alertDescriptionText: {
+      type: String,
+      default: 'Podaj opis'
     }
   },
   setup (props, { emit }) {
@@ -153,7 +161,8 @@ export default createComponent({
       const schema = unWrappedConfig.schema
       for (let i = 0; i < schema.length; i++) {
         const value = schema[i]
-        const fill = prompt(`Please enter ${value.property}`, value.default)
+        const message = value.property === 'Title' ? props.alertTitleText : props.alertDescriptionText
+        const fill = prompt(message, value.default)
         if (fill === null) {
           return
         }
@@ -190,8 +199,13 @@ export default createComponent({
       emit('after-delete')
     }
 
-    function removeHotspot (index) {
-      emit('remove-hotspot', { index })
+    function handleEdit (index) {
+      const unWrappedConfig = isRef(config) ? config.value : config
+      const Message = prompt(props.alertTitleText)
+      const Title = prompt(props.alertDescriptionText)
+      const hotspot = { ...unWrappedConfig.data[index], Message, Title }
+      Vue.set(unWrappedConfig.data, index, hotspot)
+      unWrappedConfig.data[index] = hotspot
     }
 
     return {
@@ -199,6 +213,7 @@ export default createComponent({
       defaultOptions,
       config,
       imageLoaded,
+      handleEdit,
       ...toRefs(frameSize),
       // dom
       vueHotspot,
@@ -209,7 +224,6 @@ export default createComponent({
       successLoadImg,
       saveAllHotspots,
       removeAllHotspots,
-      removeHotspot,
       resizeOverlay,
       addHotspot
     }
