@@ -23,7 +23,8 @@
       :imageLoaded="imageLoaded"
       :vueHotspotBackgroundImage="vueHotspotBackgroundImage"
       :vueHotspot="vueHotspot"
-      @click="handleEdit(i)"
+      @edit="handleEdit(i)"
+      @delete="handleDelete(i)"
     />
     <!-- ControlBox -->
     <ControlBox
@@ -208,6 +209,11 @@ export default createComponent({
       unWrappedConfig.data[index] = hotspot
     }
 
+    function handleDelete (index) {
+      const unWrappedConfig = isRef(config) ? config.value : config
+      Vue.delete(unWrappedConfig.data, index)
+    }
+
     return {
       // data
       defaultOptions,
@@ -222,6 +228,7 @@ export default createComponent({
       // methods
       deepCopy,
       successLoadImg,
+      handleDelete,
       saveAllHotspots,
       removeAllHotspots,
       resizeOverlay,

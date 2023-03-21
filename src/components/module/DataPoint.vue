@@ -6,7 +6,7 @@
     @mouseleave="interactivity === 'hover' ? isActive=false : null"
     @click="interactivity === 'click' ? toggleActive() : null">
     <!-- message box -->
-    <div @click="handleClick" :style="`color:${textColor}`">
+    <div :style="`color:${textColor}`">
       <div
         class="ui__vue_hotspot_title"
         :style="`
@@ -14,6 +14,10 @@
           opacity: ${opacity}`"
       >
         {{ hotspot['Title'] }}
+        <div style="display:flex;width:100%;justify-content: space-around;">
+          <a @click="handleDelete" role="button">Usuń</a>
+          <a @click="handleEdit" role="button">Edytuj</a>
+        </div>
       </div>
       <div
         class="ui__vue_hotspot_message"
@@ -75,7 +79,7 @@ export default createComponent({
     })
 
     function getHotspotStyle () {
-      conf.positionTop = `${(props.hotspot.y * props.vueHotspotBackgroundImage.clientHeight / 100) + (props.vueHotspotBackgroundImage.offsetTop - props.vueHotspot.clientTop)}px;`
+      conf.positionTop = `${((props.hotspot.y * props.vueHotspotBackgroundImage.clientHeight / 100) + (props.vueHotspotBackgroundImage.offsetTop - props.vueHotspot.clientTop))}px;`
       conf.positionLeft = `${(props.hotspot.x * props.vueHotspotBackgroundImage.clientWidth / 100) + (props.vueHotspotBackgroundImage.offsetLeft - props.vueHotspot.clientLeft)}px;`
     }
 
@@ -83,15 +87,20 @@ export default createComponent({
       isActive.value = !isActive.value
     }
 
-    function handleClick () {
-      emit('click')
+    function handleEdit () {
+      emit('edit')
+    }
+
+    function handleDelete () {
+      emit('delete')
     }
 
     return {
       // data
       isActive,
       ...toRefs(conf),
-      handleClick,
+      handleEdit,
+      handleDelete,
       // methods
       getHotspotStyle,
       toggleActive
@@ -113,8 +122,10 @@ export default createComponent({
   margin-top: -10px;
 }
 .ui__vue_hotspot_hotspot > div {
+  position:absolute;
   width: 140px;
-  height: 94px;
+  height: 120px;
+  top:-30px;
   margin: -104px -60px;
   border-radius: 4px;
   overflow: hidden;
@@ -124,20 +135,20 @@ export default createComponent({
 .ui__vue_hotspot_hotspot.active > div {
   display: block; /* Required */
 }
-.ui__vue_hotspot_hotspot.active > div:before {
-  border: solid transparent;
-  content: ' ';
-  height: 0;
-  left: 0;
-  position: absolute;
-  width: 0;
-  border-width: 10px;
-  border-left-color: rgba(255, 255, 255, 0.4);
-  transform: rotate(90deg);
-  top: -10px;
-}
+/*.ui__vue_hotspot_hotspot.active > div:before {*/
+/*  border: solid transparent;*/
+/*  content: ' ';*/
+/*  height: 0;*/
+/*  left: 0;*/
+/*  position: absolute;*/
+/*  width: 0;*/
+/*  border-width: 10px;*/
+/*  border-left-color: rgba(255, 255, 255, 0.4);*/
+/*  transform: rotate(90deg);*/
+/*  top: -10px;*/
+/*}*/
 .ui__vue_hotspot_hotspot > div > .ui__vue_hotspot_title {
-  height: 20px;
+  height: 40px;
   line-height: 20px;
   font-weight: bold;
   padding: 4px 10px;
@@ -146,7 +157,7 @@ export default createComponent({
 .ui__vue_hotspot_hotspot > div > .ui__vue_hotspot_message {
   margin-top: 2px;
   padding: 10px 10px;
-  height: 72px;
+  height: 120px;
   overflow-y: auto;
   transition: opacity 0.2s ease-in;
 }
