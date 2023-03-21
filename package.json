@@ -1,6 +1,6 @@
 {
   "name": "vue-hotspot",
-  "version": "2.0.3",
+  "version": "2.0.6",
   "description": "Hotspot component for Vue.js.",
   "author": "James Wang",
   "scripts": {
@@ -17,7 +17,7 @@
     "collectCoverage": true
   },
   "main": "dist/vue-hotspot.js",
-  "module": "components/VueHotspot.vue",
+  "module": "src/components/VueHotspot.vue",
   "dependencies": {
     "@vue/composition-api": "^0.3.2",
     "core-js": "^2.6.5",

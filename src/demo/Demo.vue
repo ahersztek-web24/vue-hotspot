@@ -13,6 +13,7 @@
         <!-- Main -->
         <v-hotspot
           :init-options="item"
+          save-buton-text="Bagno"
           @save-data="saveData"
           @after-delete="afterDelete" />
         <div class="text">
@@ -48,7 +49,7 @@ export default {
         {
           image: 'http://youimg1.c-ctrip.com/target/tg/154/775/815/aea886e20493478a9c2f628d86e34cfc.jpg',
           editable: true,
-          interactivity: 'hover'
+          interactivity: 'click'
         },
         {
           image: 'http://youimg1.c-ctrip.com/target/100ghk1433p0arl5c3A3B.jpg',

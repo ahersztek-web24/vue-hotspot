@@ -23,10 +23,13 @@
       :imageLoaded="imageLoaded"
       :vueHotspotBackgroundImage="vueHotspotBackgroundImage"
       :vueHotspot="vueHotspot"
+      @edit="handleEdit(i)"
+      @delete="handleDelete(i)"
     />
     <!-- ControlBox -->
     <ControlBox
       :config="config"
+      :save-button-text="saveButtonText"
       @save-data="saveAllHotspots"
       @after-delete="removeAllHotspots"
     />
@@ -57,7 +60,23 @@ export default createComponent({
     ControlBox
   },
   props: {
-    initOptions: Object
+    initOptions: Object,
+    saveButtonText: {
+      type: String,
+      default: 'Zapisz'
+    },
+    removeButtonText: {
+      type: String,
+      default: 'Usuń'
+    },
+    alertTitleText: {
+      type: String,
+      default: 'Podaj tytuł'
+    },
+    alertDescriptionText: {
+      type: String,
+      default: 'Podaj opis'
+    }
   },
   setup (props, { emit }) {
     const vueHotspot = ref(null)
@@ -143,7 +162,8 @@ export default createComponent({
       const schema = unWrappedConfig.schema
       for (let i = 0; i < schema.length; i++) {
         const value = schema[i]
-        const fill = prompt(`Please enter ${value.property}`, value.default)
+        const message = value.property === 'Title' ? props.alertTitleText : props.alertDescriptionText
+        const fill = prompt(message, value.default)
         if (fill === null) {
           return
         }
@@ -180,11 +200,26 @@ export default createComponent({
       emit('after-delete')
     }
 
+    function handleEdit (index) {
+      const unWrappedConfig = isRef(config) ? config.value : config
+      const Message = prompt(props.alertTitleText)
+      const Title = prompt(props.alertDescriptionText)
+      const hotspot = { ...unWrappedConfig.data[index], Message, Title }
+      Vue.set(unWrappedConfig.data, index, hotspot)
+      unWrappedConfig.data[index] = hotspot
+    }
+
+    function handleDelete (index) {
+      const unWrappedConfig = isRef(config) ? config.value : config
+      Vue.delete(unWrappedConfig.data, index)
+    }
+
     return {
       // data
       defaultOptions,
       config,
       imageLoaded,
+      handleEdit,
       ...toRefs(frameSize),
       // dom
       vueHotspot,
@@ -193,6 +228,7 @@ export default createComponent({
       // methods
       deepCopy,
       successLoadImg,
+      handleDelete,
       saveAllHotspots,
       removeAllHotspots,
       resizeOverlay,
