@@ -11,10 +11,13 @@
         class="ui__vue_hotspot_title"
         :style="`
           background: ${messageBoxColor};
-          opacity: ${opacity}`"
+          opacity: ${opacity}
+          height:${config.editable ? '40px' : '20px'}
+          `"
+
       >
         {{ hotspot['Title'] }}
-        <div style="display:flex;width:100%;justify-content: space-around;">
+        <div v-if="config.editable" style="display:flex;width:100%;justify-content: space-around;">
           <a @click="handleDelete" role="button">Usuń</a>
           <a @click="handleEdit" role="button">Edytuj</a>
         </div>
@@ -148,7 +151,7 @@ export default createComponent({
 /*  top: -10px;*/
 /*}*/
 .ui__vue_hotspot_hotspot > div > .ui__vue_hotspot_title {
-  height: 40px;
+  /*height: 40px;*/
   line-height: 20px;
   font-weight: bold;
   padding: 4px 10px;
