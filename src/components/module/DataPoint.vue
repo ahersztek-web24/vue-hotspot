@@ -17,7 +17,7 @@
 
       >
         {{ hotspot['Title'] }}
-        <div v-if="config.editable" style="display:flex;width:100%;justify-content: space-around;">
+        <div v-if="config.editable" style="display:flex;width:100%;justify-content: flex-start;">
           <a @click="handleDelete" role="button">Usuń</a>
           <a @click="handleEdit" role="button">Edytuj</a>
         </div>
