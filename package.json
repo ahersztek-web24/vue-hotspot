@@ -17,7 +17,7 @@
     "collectCoverage": true
   },
   "main": "dist/vue-hotspot.js",
-  "module": "src/components/VueHotspot.vue",
+  "module": "dist/vue-hotspot.js",
   "dependencies": {
     "@vue/composition-api": "^0.3.2",
     "core-js": "^2.6.5",
