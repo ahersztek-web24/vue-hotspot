@@ -17,7 +17,7 @@
           @save-data="saveData"
           @after-delete="afterDelete" />
         <div class="text">
-          Editable: {{ item.editable }} | interactivity: {{ item.interactivity }}
+          Editable: {{ item.editable }} | interactivity: {{ item.interactivity }} | hotspotCurves: {{ item.hotspotCurves }}
         </div>
         <!-- Button -->
         <toggle
@@ -49,17 +49,20 @@ export default {
         {
           image: 'http://youimg1.c-ctrip.com/target/tg/154/775/815/aea886e20493478a9c2f628d86e34cfc.jpg',
           editable: true,
-          interactivity: 'click'
+          interactivity: 'click',
+          hotspotCurves: false
         },
         {
           image: 'http://youimg1.c-ctrip.com/target/100ghk1433p0arl5c3A3B.jpg',
           editable: false,
-          interactivity: 'click'
+          interactivity: 'click',
+          hotspotCurves: false
         },
         {
           image: 'http://5b0988e595225.cdn.sohucs.com/images/20171109/920c1cdc5d294a0eb2e17f2b9e731542.jpeg',
           editable: false,
           interactivity: 'hover',
+          hotspotCurves: false,
           data: [
             { Message: 'A prepopulated hotspot with custom color', Title: 'Vue Hotspot 1', x: 33.3973, y: 58.3333 },
             { Message: 'Another prepopulated hotspot with custom color', Title: 'Vue Hotspot 2', x: 53.3973, y: 78.3333 },
@@ -73,6 +76,7 @@ export default {
           image: 'http://pic.rmb.bdstatic.com/a2aa78b5e58cefb983dc2b9ea0ff9910.jpeg',
           editable: false,
           interactivity: 'none',
+          hotspotCurves: false,
           data: [
             { Message: 'A prepopulated hotspot with interactivity: none', Title: 'Vue Hotspot 1', x: 33.3973, y: 68.3333 },
             { Message: 'Another prepopulated hotspot with interactivity: none', Title: 'Vue Hotspot 2', x: 73.3973, y: 38.3333 }
@@ -81,7 +85,22 @@ export default {
         {
           image: 'https://www.tripsavvy.com/thmb/6oWvLMhqeWAq6YKDREH6S7LMLcE=/950x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/cityscape-of-melbourne-city-of-australia-during-the-sunset--873409300-8db98cef20b44200abfb339188d801f7.jpg',
           editable: true,
-          overlayText: '🚀 Customize your own overlay text! 😄'
+          overlayText: '🚀 Customize your own overlay text! 😄',
+          hotspotCurves: false
+        },
+        {
+          image: 'http://5b0988e595225.cdn.sohucs.com/images/20171109/920c1cdc5d294a0eb2e17f2b9e731542.jpeg',
+          editable: false,
+          interactivity: 'hover',
+          hotspotCurves: true,
+          data: [
+            { Message: 'A prepopulated hotspot with custom color', Title: 'Vue Hotspot 1', x: 33.3973, y: 58.3333 },
+            { Message: 'Another prepopulated hotspot with custom color', Title: 'Vue Hotspot 2', x: 53.3973, y: 78.3333, isMain: true },
+            { Message: 'Another prepopulated hotspot with custom color', Title: 'Vue Hotspot 3', x: 73.3973, y: 28.3333 }
+          ],
+          hotspotColor: '#85ce61',
+          messageBoxColor: '#409eff',
+          textColor: '#333'
         }
       ]
     }

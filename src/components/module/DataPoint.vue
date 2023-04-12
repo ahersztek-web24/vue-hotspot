@@ -64,7 +64,8 @@ export default createComponent({
       interactivity: computed(() => props.config && props.config.interactivity),
       textColor: computed(() => props.config && props.config.textColor),
       messageBoxColor: computed(() => props.config && props.config.messageBoxColor),
-      opacity: computed(() => props.config && props.config.opacity)
+      opacity: computed(() => props.config && props.config.opacity),
+      isMain: computed(() => props.hotspot && props.hotspot.isMain)
     })
 
     watch(() => props.imageLoaded, (loaded, prev) => {
