@@ -93,16 +93,17 @@ export default createComponent({
     },
     countDeflection (dimension) {
       const oppositeDimension = dimension === 'x' ? 'y' : 'x'
-      const oppositeLength = (this.endPosition[oppositeDimension] - this.startPosition[oppositeDimension]) / 3
-      const length = this.endPosition[dimension] - this.startPosition[dimension] / 5
+      const oppositeLength = Math.abs(this.endPosition[oppositeDimension] - this.startPosition[oppositeDimension])
+      const length = Math.abs(this.endPosition[dimension] - this.startPosition[dimension])
       const minimumDeflection = 50
-      const sign = (this.endPosition[dimension] > this.startPosition[dimension]) ? -1 : 1
+      const isDimGrowing = this.endPosition[dimension] > this.startPosition[dimension]
+      const sign = isDimGrowing ? 1 : -1
 
-      if (Math.abs(length) < minimumDeflection) {
+      if (length > oppositeLength) {
         return 0
       }
 
-      return Math.max(oppositeLength, minimumDeflection) * sign
+      return Math.max(oppositeLength / 1.5, minimumDeflection) * sign
     }
   }
 })
