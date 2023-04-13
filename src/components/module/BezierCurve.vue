@@ -1,5 +1,5 @@
 <template>
-      <path :d="path" stroke="black" fill="transparent"/>
+      <path :d="path" :class="extraClass + ' path'" stroke="black" fill="transparent"/>
 </template>
 
 <script>
@@ -16,7 +16,8 @@ export default createComponent({
     start: DataPoint,
     end: DataPoint,
     vueHotspotBackgroundImage: HTMLImageElement,
-    vueHotspot: HTMLDivElement
+    vueHotspot: HTMLDivElement,
+    extraClass: String
   },
   computed: {
     intermediatePoints () {
@@ -28,24 +29,25 @@ export default createComponent({
 
       const points = []
 
-      const partialLength = Math.round(length / this.getIndirectPoints())
-      const partialHeight = Math.round(height / this.getIndirectPoints())
+      const partialLength = this.roundToTwo(length / this.getIndirectPoints())
+      const partialHeight = this.roundToTwo(height / this.getIndirectPoints())
 
       for (let i = 1; i <= this.getIndirectPoints(); i++) {
-        const deflection = (i !== 1 && i !== this.getIndirectPoints()) ? 40 : 0
+        const deflectionX = (i !== 1 && i !== this.getIndirectPoints()) ? Math.abs(length / 3) : 0
+        const deflectionY = (i !== 1 && i !== this.getIndirectPoints()) ? Math.abs(height / 3) : 0
 
         points.push({
-          x: Math.round(this.startPosition.x + (partialLength * i + (deflection * deflectionSignX))),
-          y: Math.round(this.startPosition.y + (partialHeight * i + (deflection * deflectionSignY)))
+          x: this.roundToTwo(this.startPosition.x + (partialLength * i + (deflectionX * deflectionSignX))),
+          y: this.roundToTwo(this.startPosition.y + (partialHeight * i + (deflectionY * deflectionSignY)))
         })
       }
 
-      // points.push({ x: Math.round(this.endPosition.x), y: Math.round(this.endPosition.y) })
+      // points.push({ x: this.roundToTwo(this.endPosition.x), y: this.roundToTwo(this.endPosition.y) })
 
       return points
     },
     path () {
-      let path = 'M ' + Math.round(this.startPosition.x) + ' ' + Math.round(this.startPosition.y) + ' C '
+      let path = 'M ' + this.roundToTwo(this.startPosition.x) + ' ' + this.roundToTwo(this.startPosition.y) + ' C '
 
       this.intermediatePoints.forEach((item, index) => {
         if (index > 0) {
@@ -70,6 +72,9 @@ export default createComponent({
         y: Number(datapoint.positionTop ? datapoint.positionTop.replace('px;', '') : 0),
         x: Number(datapoint.positionLeft ? datapoint.positionLeft.replace('px;', '') : 0)
       }
+    },
+    roundToTwo (number) {
+      return Math.round(number * 100) / 100
     }
   },
   setup (props, { emit }) {

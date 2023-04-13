@@ -9,6 +9,7 @@
           :end="targetPoint"
           :vueHotspotBackgroundImage="vueHotspotBackgroundImage"
           :vueHotspot="vueHotspot"
+          extraClass="path--forwards"
         />
         <BezierCurve
           v-for="(targetPoint, i) in targetDataPoints"
@@ -17,6 +18,7 @@
           :end="mainDataPoint"
           :vueHotspotBackgroundImage="vueHotspotBackgroundImage"
           :vueHotspot="vueHotspot"
+          extraClass="path--backwards"
         />
       </svg>
     </div>
