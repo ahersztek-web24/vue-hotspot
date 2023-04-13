@@ -25,6 +25,13 @@
       :vueHotspot="vueHotspot"
       @edit="handleEdit(i)"
       @delete="handleDelete(i)"
+      ref="dataPoints"
+    />
+    <FloatingCurves
+      v-if="config.hotspotCurves && imageLoaded"
+      :vueHotspotBackgroundImage="vueHotspotBackgroundImage"
+      :vueHotspot="vueHotspot"
+      :dataPoints="dataPoints"
     />
     <!-- ControlBox -->
     <ControlBox
@@ -40,6 +47,7 @@
 import Vue from 'vue'
 import DataPoint from './module/DataPoint.vue'
 import ControlBox from './module/ControlBox.vue'
+import FloatingCurves from './module/FloatingCurves.vue'
 import { throttle } from './utils/common.js'
 import VueCompositionApi, {
   createComponent,
@@ -57,7 +65,8 @@ Vue.use(VueCompositionApi)
 export default createComponent({
   components: {
     DataPoint,
-    ControlBox
+    ControlBox,
+    FloatingCurves
   },
   props: {
     initOptions: Object,
@@ -82,6 +91,7 @@ export default createComponent({
     const vueHotspot = ref(null)
     const vueHotspotOverlay = ref(null)
     const vueHotspotBackgroundImage = ref(null)
+    const dataPoints = ref(null)
 
     const defaultOptions = reactive({
       // Object to hold the hotspot data points
@@ -98,6 +108,9 @@ export default createComponent({
       // Event on which the hotspot data point will show up
       // allowed values: `click`, `hover`, `none`
       interactivity: 'hover',
+
+      // Set true if floating curves should be visible. Remember to set `is_main` as true in proper hotspot.
+      hotspotCurves: false,
 
       // background color for hotspots
       hotspotColor: 'rgb(66, 184, 131)',
@@ -225,6 +238,7 @@ export default createComponent({
       vueHotspot,
       vueHotspotOverlay,
       vueHotspotBackgroundImage,
+      dataPoints,
       // methods
       deepCopy,
       successLoadImg,
