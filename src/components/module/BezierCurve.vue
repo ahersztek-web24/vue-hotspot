@@ -23,17 +23,20 @@ export default createComponent({
       const length = this.endPosition.x - this.startPosition.x
       const height = this.endPosition.y - this.startPosition.y
 
+      const deflectionSignX = this.endPosition.x > this.startPosition.x ? 1 : -1
+      const deflectionSignY = this.endPosition.y > this.startPosition.y ? -1 : 1
+
       const points = []
 
       const partialLength = Math.round(length / this.getIndirectPoints())
       const partialHeight = Math.round(height / this.getIndirectPoints())
 
       for (let i = 1; i <= this.getIndirectPoints(); i++) {
-        const deflection = (i !== 1 && i !== this.getIndirectPoints()) ? 0 : 0
+        const deflection = (i !== 1 && i !== this.getIndirectPoints()) ? 40 : 0
 
         points.push({
-          x: Math.round(this.startPosition.x + (partialLength * i - deflection)),
-          y: Math.round(this.startPosition.y + (partialHeight * i + deflection))
+          x: Math.round(this.startPosition.x + (partialLength * i + (deflection * deflectionSignX))),
+          y: Math.round(this.startPosition.y + (partialHeight * i + (deflection * deflectionSignY)))
         })
       }
 
@@ -64,8 +67,8 @@ export default createComponent({
   methods: {
     getDataPointPosition (datapoint) {
       return {
-        y: Number(datapoint.positionTop.replace('px;', '')),
-        x: Number(datapoint.positionLeft.replace('px;', ''))
+        y: Number(datapoint.positionTop ? datapoint.positionTop.replace('px;', '') : 0),
+        x: Number(datapoint.positionLeft ? datapoint.positionLeft.replace('px;', '') : 0)
       }
     }
   },
@@ -73,7 +76,7 @@ export default createComponent({
     const conf = reactive({
       color: computed(() => props.config && props.config.hotspotColor),
       opacity: computed(() => props.config && props.config.opacity),
-      indirectPoints: computed(() => props.config && props.config.indirectPoints ? props.config.indirectPoints : 4)
+      indirectPoints: computed(() => props.config && props.config.indirectPoints ? props.config.indirectPoints : 3)
     })
 
     function getIndirectPoints () {
