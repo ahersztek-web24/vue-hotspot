@@ -33,8 +33,8 @@ export default createComponent({
       const partialHeight = this.roundToTwo(height / this.getIndirectPoints())
 
       for (let i = 1; i <= this.getIndirectPoints(); i++) {
-        const deflectionX = (i !== 1 && i !== this.getIndirectPoints()) ? Math.abs(length / 3) : 0
-        const deflectionY = (i !== 1 && i !== this.getIndirectPoints()) ? Math.abs(height / 3) : 0
+        const deflectionX = (i !== 1 && i !== this.getIndirectPoints()) ? Math.max(Math.abs(length / 3), 30) : 0
+        const deflectionY = (i !== 1 && i !== this.getIndirectPoints()) ? Math.max(Math.abs(height / 3), 30) : 0
 
         points.push({
           x: this.roundToTwo(this.startPosition.x + (partialLength * i + (deflectionX * deflectionSignX))),
