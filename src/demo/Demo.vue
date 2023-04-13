@@ -95,7 +95,10 @@ export default {
           hotspotCurves: true,
           data: [
             { Message: 'A prepopulated hotspot with custom color', Title: 'Vue Hotspot 1', x: 33.3973, y: 58.3333 },
-            { Message: 'Another prepopulated hotspot with custom color', Title: 'Vue Hotspot 2', x: 53.3973, y: 78.3333, isMain: true },
+            { Message: 'Another prepopulated hotspot with custom color', Title: 'Vue Hotspot 2', x: 53.3973, y: 78.3333 },
+            { Message: 'Another prepopulated hotspot with custom color', Title: 'Vue Hotspot 3', x: 50, y: 50, isMain: true },
+            { Message: 'Another prepopulated hotspot with custom color', Title: 'Vue Hotspot 3', x: 11.3973, y: 23.3333 },
+            { Message: 'Another prepopulated hotspot with custom color', Title: 'Vue Hotspot 3', x: 40.3973, y: 47.3333 },
             { Message: 'Another prepopulated hotspot with custom color', Title: 'Vue Hotspot 3', x: 73.3973, y: 28.3333 }
           ],
           hotspotColor: '#85ce61',
