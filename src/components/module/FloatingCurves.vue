@@ -10,6 +10,14 @@
           :vueHotspotBackgroundImage="vueHotspotBackgroundImage"
           :vueHotspot="vueHotspot"
         />
+        <BezierCurve
+          v-for="(targetPoint, i) in targetDataPoints"
+          :key="i"
+          :start="targetPoint"
+          :end="mainDataPoint"
+          :vueHotspotBackgroundImage="vueHotspotBackgroundImage"
+          :vueHotspot="vueHotspot"
+        />
       </svg>
     </div>
   </div>
